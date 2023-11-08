@@ -1,4 +1,5 @@
 import { IDBPDatabase } from "idb";
+import { faker } from "@faker-js/faker";
 
 type validStoreName = "habit_list" | "habit_category";
 
@@ -22,6 +23,9 @@ export const whereInAnd = async (
       break;
     }
   }
+  await new Promise((resolve) =>
+    setTimeout(resolve, faker.number.int({ min: 50, max: 300 }))
+  );
   return res;
 };
 
@@ -30,6 +34,8 @@ export const getAll = async (
   storeName: validStoreName
 ): Promise<any[]> => {
   let store = (await db).getAll(storeName);
-//   (await db).close();
+  await new Promise((resolve) =>
+    setTimeout(resolve, faker.number.int({ min: 50, max: 300 }))
+  );
   return store;
 };

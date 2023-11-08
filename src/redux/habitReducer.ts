@@ -8,23 +8,13 @@ import {
 import db from "../database/database";
 import { whereInAnd } from "../database/query";
 
-export const getHabitsByCategories = createAsyncThunk(
-  "habits/getGroupsById",
-  async (category: CategoryRecord) => {
-    let categories: CategoryRecord[] = await whereInAnd(
-      db,
-      "habit_category",
-      "id",
-      [category.id]
-    );
+export const getHabitsByCategory = createAsyncThunk(
+  "habits/getByCategory",
+  async (id: number) => {
+    let category: CategoryRecord = await (await db).get("habit_category", id);
     let habits: HabitRecord[] = [];
-    if (categories.length > 0) {
-      habits = await whereInAnd(
-        db,
-        "habit_list",
-        "habit_category",
-        categories[0].habits
-      );
+    if (category) {
+      habits = await whereInAnd(db, "habit_list", "category", [id]);
     }
     return habits as HabitRecord[];
   }
@@ -32,27 +22,14 @@ export const getHabitsByCategories = createAsyncThunk(
 
 export const habitAdapter = createEntityAdapter<HabitRecord>();
 
-const initialState = habitAdapter.getInitialState({
-  status: "idle",
-  message: "",
-});
+const initialState = habitAdapter.getInitialState();
 
 export const habitSlice = createSlice({
   name: "habits",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getHabitsByCategories.pending, (state) => {
-      state.status = "pending";
-    });
-    builder.addCase(getHabitsByCategories.fulfilled, (state, action) => {
-      state.status = "ready";
-      habitAdapter.upsertMany(state, action.payload);
-    });
-    builder.addCase(getHabitsByCategories.rejected, (state) => {
-      state.status = "error";
-      state.message = "An error happened while fetching the data!";
-    });
+    builder.addCase(getHabitsByCategory.fulfilled, habitAdapter.upsertMany);
   },
 });
 

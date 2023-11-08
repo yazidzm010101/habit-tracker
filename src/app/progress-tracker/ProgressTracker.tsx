@@ -36,7 +36,7 @@ function ProgressTracker() {
             className="flex flex-col items-center justify-center"
           >
             <span className="text-gray-500">{format(currTs, "EEEEEE")}</span>
-            <span className="flex flex-col items-center justify-center w-12 h-12 font-bold bg-white border rounded-full">
+            <span className="flex flex-col items-center justify-center w-12 h-12 font-bold bg-white border rounded-xl">
               {currDate}
             </span>
           </motion.span>
@@ -53,7 +53,7 @@ function ProgressTracker() {
           className="flex flex-col items-center justify-center"
         >
           <span className="text-gray-500">{format(active, "EEEEEE")}</span>
-          <span className="flex flex-col items-center justify-center w-12 h-12 font-bold text-white bg-red-500 border rounded-full">
+          <span className="flex flex-col items-center justify-center w-12 h-12 font-bold text-white bg-orange-500 border rounded-xl">
             {format(active, "d")}
           </span>
         </motion.span>
@@ -73,7 +73,7 @@ function ProgressTracker() {
             className="flex flex-col items-center justify-center"
           >
             <span className="text-gray-500">{format(currTs, "EEEEEE")}</span>
-            <span className="flex flex-col items-center justify-center w-12 h-12 font-bold bg-white border rounded-full">
+            <span className="flex flex-col items-center justify-center w-12 h-12 font-bold bg-white border rounded-xl">
               {currDate}
             </span>
           </motion.span>

@@ -11,7 +11,8 @@ export default  resolveConfig({
     extend: {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
-        serif: ["Inter", ...defaultTheme.fontFamily.sans],
+        serif: ["Inter", ...defaultTheme.fontFamily.sans],  
+        sans_condensed: ["Barlow Condensed", ...defaultTheme.fontFamily.sans]
       },
     },
   },
