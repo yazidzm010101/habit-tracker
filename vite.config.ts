@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      base: "/habit-tracker",
+      base: "/habit-tracker/",
       registerType: "autoUpdate",
       devOptions: {
         enabled: true
