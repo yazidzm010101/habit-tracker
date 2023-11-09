@@ -13,7 +13,7 @@ for (let i = 0; i < 10; i++) {
   });
 }
 
-function ProgressTracker() {
+function ProgressTrackerPage() {
   const [active, setActive] = useState(startOfToday());
   const [days, setDays] = useState<any[]>([]);
 
@@ -94,4 +94,4 @@ function ProgressTracker() {
   );
 }
 
-export default ProgressTracker;
+export default ProgressTrackerPage;

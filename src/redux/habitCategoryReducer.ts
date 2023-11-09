@@ -77,23 +77,80 @@ export const getHabitCategoryById = createAsyncThunk(
   }
 );
 
+export const addHabitCategory = createAsyncThunk(
+  "categories/add",
+  async ({ name }: { name: string }) => {
+    const id = await (await db).add("habit_category", { name, habits: [] });
+    return {
+      id,
+      name,
+      habits: [],
+    } as CategoryRecord;
+  }
+);
+
+export const removeHabitCategory = createAsyncThunk(
+  "categories/remove",
+  async (id: number) => {
+    const category = (await (
+      await db
+    ).get("habit_category", id)) as CategoryRecord;
+    const habits = (await whereInAnd(db, "habit_list", "category", [
+      category.id,
+    ])) as HabitRecord[];
+    await Promise.all(
+      habits.map(async (habit) => {
+        return (await db).delete("habit_list", habit.id);
+      })
+    );
+    (await db).delete("habit_category", id);
+    return category;
+  }
+);
+
+export const updateHabitCategory = createAsyncThunk(
+  "categories/update",
+  async (record: CategoryRecord) => {
+    await (await db).put("habit_category", record);
+    return record as CategoryRecord;
+  }
+);
+
 export const habitCategoryAdapter = createEntityAdapter<CategoryRecord>();
 
-const initialState = habitCategoryAdapter.getInitialState();
+type statusType = { status: "ready" | "pending" | "error" };
+const initialState = habitCategoryAdapter.getInitialState({
+  status: "ready",
+} as statusType);
 
 export const habitCategorySlice = createSlice({
   name: "habitCategories",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(
-      getHabitCategories.fulfilled,
-      habitCategoryAdapter.upsertMany
-    );
+    builder.addCase(getHabitCategories.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(getHabitCategories.fulfilled, (state, action) => {
+      habitCategoryAdapter.removeAll(state);
+      habitCategoryAdapter.upsertMany(state, action);
+      state.status = "ready";
+    });
+    builder.addCase(getHabitCategories.rejected, (state) => {
+      state.status = "error";
+    });
     builder.addCase(
       getHabitCategoryById.fulfilled,
       habitCategoryAdapter.upsertOne
     );
+    builder.addCase(addHabitCategory.fulfilled, habitCategoryAdapter.upsertOne);
+    builder.addCase(
+      updateHabitCategory.fulfilled,
+      habitCategoryAdapter.upsertOne
+    );
+    builder.addCase(removeHabitCategory.fulfilled, (state, action) => {
+      habitCategoryAdapter.removeOne(state, action.payload.id);
+    });
   },
 });
 

@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import Achievements from "../app/achievements/Achievements";
-import HabitPage from "../app/habits/HabitPage";
+import HabitPage from "../app/habits/_index";
 import Layout from "../components/Layout";
-import ProgressTracker from "../app/progress-tracker/ProgressTracker";
+import ProgressTrackerPage from "../app/progress-tracker/ProgressTrackerPage";
 import paths from "./paths";
 import { useEffect } from "react";
 
@@ -27,7 +27,7 @@ function Router() {
         <Route path={paths.achievements.path} element={<Achievements />} />
         <Route
           path={paths.progress_tracker.path}
-          element={<ProgressTracker />}
+          element={<ProgressTrackerPage />}
         />
       </Route>
     </Routes>
