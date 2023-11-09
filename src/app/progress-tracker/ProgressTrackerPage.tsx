@@ -20,10 +20,10 @@ function ProgressTrackerPage() {
   useEffect(() => {
     // scroll mode
     if (true) {
-      let newDays = [];
+      const newDays = [];
       for (let i = 5; i >= 1; i--) {
-        let currTs = subDays(new Date(active), i);
-        let currDate = format(currTs, "d");
+        const currTs = subDays(new Date(active), i);
+        const currDate = format(currTs, "d");
         newDays.push(
           <motion.span
             initial={{ opacity: 0 }}
@@ -59,8 +59,8 @@ function ProgressTrackerPage() {
         </motion.span>
       );
       for (let i = 1; i <= 5; i++) {
-        let currTs = addDays(new Date(active), i);
-        let currDate = format(currTs, "d");
+        const currTs = addDays(new Date(active), i);
+        const currDate = format(currTs, "d");
         newDays.push(
           <motion.span
             initial={{ opacity: 0 }}

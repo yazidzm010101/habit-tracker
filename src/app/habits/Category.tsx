@@ -36,9 +36,9 @@ function Category({
     (state: RootState) => state.habits
   );
 
-  let habitEntities = useSelector(selectEntities);
-  let habits = category.habits.map((id) => {
-    let habit = habitEntities[id];
+  const habitEntities = useSelector(selectEntities);
+  const habits = category.habits.map((id) => {
+    const habit = habitEntities[id];
     return habit as HabitRecord;
   });
 

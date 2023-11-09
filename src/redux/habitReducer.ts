@@ -11,7 +11,7 @@ import { whereInAnd } from "../database/query";
 export const getHabitsByCategory = createAsyncThunk(
   "habits/getByCategory",
   async (id: number) => {
-    let category: CategoryRecord = await (await db).get("habit_category", id);
+    const category: CategoryRecord = await (await db).get("habit_category", id);
     let habits: HabitRecord[] = [];
     if (category) {
       habits = await whereInAnd(db, "habit_list", "category", [id]);

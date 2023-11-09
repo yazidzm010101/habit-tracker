@@ -12,7 +12,7 @@ export const getHabitCategories = createAsyncThunk(
   "categories/getAll",
   async () => {
     let categories: CategoryRecord[] = await getAll(db, "habit_category");
-    let habits: HabitRecord[] = await whereInAnd(
+    const habits: HabitRecord[] = await whereInAnd(
       db,
       "habit_list",
       "category",
@@ -51,7 +51,7 @@ export const getHabitCategories = createAsyncThunk(
 export const getHabitCategoryById = createAsyncThunk(
   "categories/getById",
   async (id: number) => {
-    let category: CategoryRecord = await (await db).get("habit_category", id);
+    const category: CategoryRecord = await (await db).get("habit_category", id);
     let habits: HabitRecord[] = await whereInAnd(db, "habit_list", "category", [
       id,
     ]);

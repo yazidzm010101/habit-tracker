@@ -9,12 +9,12 @@ export const whereInAnd = async (
   column: string,
   values: any[]
 ): Promise<any[]> => {
-  let store = (await db).transaction(storeName).store;
+  const store = (await db).transaction(storeName).store;
   let cursor: any = await store.openCursor();
-  let res: any[] = [];
+  const res: any[] = [];
   cursor = await cursor?.continue();
   while (true) {
-    let record = cursor.value;
+    const record = cursor.value;
     if (values.indexOf(record[column]) > -1) {
       res.push(record);
     }
@@ -33,7 +33,7 @@ export const getAll = async (
   db: Promise<IDBPDatabase>,
   storeName: validStoreName
 ): Promise<any[]> => {
-  let store = (await db).getAll(storeName);
+  const store = (await db).getAll(storeName);
   await new Promise((resolve) =>
     setTimeout(resolve, faker.number.int({ min: 50, max: 300 }))
   );

@@ -8,7 +8,7 @@ export function CategorySkeleton({
   length: number;
   className?: string;
 }) {
-  let skeletons: any[] = [];
+  const skeletons: any[] = [];
   for (let i = 0; i < length; i++) {
     skeletons.push(
       <div

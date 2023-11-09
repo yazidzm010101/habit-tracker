@@ -8,7 +8,7 @@ function Skeleton({
   className?: string;
   noOfLines?: number;
 }) {
-  let skeletons = [];
+  const skeletons = [];
   for (let i = 0; i < noOfLines; i++) {
     skeletons.push(
       <motion.div
