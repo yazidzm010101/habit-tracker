@@ -40,7 +40,7 @@ function CategoryRemove({
         });
         onClose();
       })
-      .catch((err) => {
+      .catch((_err) => {
         toast.error(`Error removing "${category.name}" category`, {
           position: "top-center",
           className: "md:ml-[300px]",

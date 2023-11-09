@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { RiAddCircleLine, RiCloseLine } from "react-icons/ri";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import Portal from "../../components/Portal";
 import { addHabitCategory } from "../../redux/habitCategoryReducer";
@@ -43,7 +43,7 @@ function AddModal({ isOpen, onClose }: { isOpen?: boolean; onClose: any }) {
       setState("success")
       toast.success(`Success adding "${form.name}" category`, {position: "top-center", className: "md:ml-[300px]"})
       onClose();
-    }).catch(err => {
+    }).catch(_err => {
       toast.error(`Error adding "${form.name}" category`, {position: "top-center", className: "md:ml-[300px]"})
       setState("error");
       onClose();
